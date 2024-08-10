@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Movie Day</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- nav bar-->
+    <nav class="shadow-lg">
+        <div class="flex flex-wrap justify-between items-center mx-auto px-4">
+            <a href="{% url 'index' %}" class="flex items-center p-3">
+                <img class="h-6 mr-3"
+                    src="https://pngimg.com/uploads/chrome_logo/chrome_logo_PNG3.png"
+                    alt="logo">
+                <span class="self-center text-xl font-bold">Marketplace "Movie Day"</span>
+            </a>
+            <div class="flex items-center">
+                <a class="mr-5 text-md font-medium hover:bg-blue-200 p-2 rounded-lg" href="{% url 'index' %}">Home</a>
+                <a class="mr-5 text-md font-medium hover:bg-blue-200 p-2 rounded-lg"
+                    href="{% url 'movieGallery' %}">movieGallery</a>
+                {% if user and user.is_authenticated %}
+
+                <a class="mr-5 text-md font-medium hover:bg-blue-200 p-2 rounded-lg"
+                    href="{% url 'dashboard' %}">Dashboard</a>
+
+                <a class="mr-5 text-md font-medium hover:bg-blue-200 p-2 rounded-lg" href="{% url 'sales' %}">Sales</a>
+                <a class="mr-5 text-md font-medium hover:bg-blue-200 p-2 rounded-lg"
+                    href="{% url 'orders' %}">Orders</a>
+                <a class="mr-5 text-md font-medium hover:bg-blue-200 p-2 rounded-lg"
+                    href="{% url 'createproduct' %}">Create Product</a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="mr-5 text-sm font-medium hover:bg-blue-200 p-2 rounded-lg">Logout</button>
+                </form>
+                {% else %}
+                <a class="mr-5 text-sm font-medium hover:bg-blue-200 p-2 rounded-lg" href="{% url 'login' %}">Login</a>
+                {% endif %}
+                 <form class="d-flex" method="post" action="{% url 'search' %}">
+                  {% csrf_token %}
+                   <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                   <button class="btn btn-warning" type="submit">Search</button>
+                 </form>
+            </div>
+        </div>
+    </nav>
+
+    {% block body %}
+
+    {% endblock %}
+</body>
+
+</html>

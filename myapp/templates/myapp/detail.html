@@ -1,0 +1,88 @@
+{% extends 'myapp/base.html' %}
+
+{% block body %}
+
+<div class="flex p-10 justify-center items-center mt-40">
+    <!-- left div -->
+    <div class="">
+        <img class="max-h-80" src="{{ product.file.url }}"
+            alt="">
+    </div>
+
+    <!-- right div -->
+    <div class=" pl-10">
+        <div class="text-4xl mb-3">{{ product.name }}</div>
+        <div class="mb-4">{{ product.description }}</div>
+        <div class="mb-4 text-green-600 font-bold">£{{ product.price }}</div>
+        <div class="mb-4 text-orange-600 font-bold">
+            <span id="rating">{{ product.average_rating|floatformat:2 }} </span>
+        </div>
+        <div>
+            <a class="rounded-lg bg-green-500 hover:bg-green-700 font-bold text-white px-4 py-2" href="#"
+                onclick="addToCart('{{ product.id }}')">Add to cart</a>
+            <a class="rounded-lg bg-red-500 hover:bg-red-700 font-bold text-black px-4 py-2" href="#"
+                onclick="removeFromCart('{{ product.id }}')">Remove from cart</a>
+            <a class="rounded-lg bg-purple-500 hover:bg-purple-700 font-bold text-black px-4 py-2"
+                href="{% url 'view_cart' %}"> Go to cart</a>
+        </div>
+        <div id="myemail" hidden>
+            {{ request.user.email }}
+        </div>
+    </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script type="text/javascript">
+
+    // adding stars to rating logic
+    const ratingElement = document.getElementById('rating')
+    const rating = ratingElement.innerHTML
+    const parsedRating = parseFloat(rating)
+
+    const fullStars = Math.floor(parsedRating);
+    /*const test = parsedRating + 5
+    alert(test) */
+    for (let i = 0; i < fullStars; i++) {
+        ratingElement.innerHTML += "★"
+    }
+
+
+    // adding and removing from cart logic
+    function addToCart(productId) {
+        event.preventDefault();
+        fetch("{% url 'add_to_cart' product_id=product.id %}")
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Failed to add item to cart');
+            })
+            .then(data => {
+                alert('Item added to cart');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function removeFromCart(productId) {
+        event.preventDefault();
+        fetch("{% url 'remove_from_cart' product_id=product.id %}")
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Failed to remove item from cart');
+            })
+            .then(data => {
+                alert('Item removed from cart');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+</script>
+
+{% endblock %}
