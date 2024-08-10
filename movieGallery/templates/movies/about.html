@@ -1,0 +1,113 @@
+{% extends 'movies/base.html' %}
+
+{% block title%}Cinema{% endblock %}
+
+{% block content %}
+{% load static %}
+<style>
+    .highlight {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Main_Title {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.film {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.left-block {
+    flex: 1;
+}
+
+.right-block {
+    flex: 3;
+    padding: 0 20px;
+}
+
+.right-block h3 {
+    font-size: 18px;
+}
+
+.right-block p {
+    font-size: 16px;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkblue;
+}
+</style>
+    <div class="container">
+        <h1 class="Main_Title">Cinema</h1>
+        <div>
+            <a href="https://www.kinoafisha.info/">
+                <button class="highlight">КИНОАФИША</button>
+            </a>
+        </div>
+
+        <div class="main">
+            <div class="film">
+                <div class="left-block">
+                    <img src="{% static '/media/movie_posters/movie.png' %}" alt="">
+                </div>
+                <div class="right-block">
+            <h3>
+                Вселенная Стивена Хокинга 2014 года.
+            </h3>
+            <p>
+В электронном письме режиссеру фильма Джеймсу Маршу Стивен Хокинг написал, что, когда он смотрел на исполнение Эдди Редмэйн в фильме, были определенные моменты, когда ученому казалось, будто он наблюдает за самим собой.
+            </p>
+ <a href="https://www.kinoafisha.info/movies/8165599/"><button>Trailer</button></a>
+    <a href="https://yandex.ru/video/preview/15278940194346654912"><button>Film</button></a>
+        </div>
+    </div>
+
+    <div class="film">
+        <div class="left-block">
+            <img src="{% static '/media/movie_posters/movie1.png' %}" alt="">
+        </div>
+
+        <div class="right-block">
+            <h3>
+               Зеленная миля 1999 года.
+            </h3>
+            <p>
+Оценка
+Мой любимый фильм!
+Актерский состав и игра и вообще все в фильме, сюжет, да все в общем....
+7 октября 2020, 17:52
+Тарас Филинцев
+Один из лучших фильмов 2000, всем советую к просмотру. Актёр Майкл Дункан сыграл просто шедеврально. Прям видно было, что он прожил историю через себя.
+4 ноября 2020, 14:19
+
+            </p>
+            <a href="https://www.kinoafisha.info/trailers/59a222a865bdb2e2b1e06d0b376debb8/"><button>Trailer</button></a>
+    <a href="https://yandex.ru/video/preview/10686917430869729574"><button>Film</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
